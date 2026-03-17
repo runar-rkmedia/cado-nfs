@@ -23,9 +23,8 @@ lib/cado-nfs-3.0.0/polyselect/dlpolyselect
 bin/cado-nfs-client.py
 EOF
 
-rsync -a --files-from=- /usr/local/ /usr/local/common-client/ <<EOF
-lib/cado-nfs-3.0.0/scripts/cadofactor/
-EOF
+rsync -a --mkpath /usr/local/lib/cado-nfs-3.0.0/scripts/cadofactor/ /usr/local/common-client/lib/cado-nfs-3.0.0/scripts/cadofactor/
+rsync -a --mkpath /usr/local/lib/cado-nfs-3.0.0/scripts/cadofactor/ /usr/local/common-server/lib/cado-nfs-3.0.0/scripts/cadofactor/
 
 rsync -a --files-from=- /usr/local/ /usr/local/common-server/ <<EOF
 bin/cado-nfs.py
@@ -33,7 +32,6 @@ lib/cado-nfs-3.0.0/polyselect/polyselect3
 lib/cado-nfs-3.0.0/filter/dup1
 lib/cado-nfs-3.0.0/filter/dup2
 lib/cado-nfs-3.0.0/filter/purge
-lib/cado-nfs-3.0.0/scripts/cadofactor/
 lib/cado-nfs-3.0.0/sieve/freerel
 lib/cado-nfs-3.0.0/sieve/las
 lib/cado-nfs-3.0.0/sieve/makefb
@@ -65,7 +63,7 @@ collect() { (cd /usr/local ; for x in "$@" ; do find -name "$x" ; done) ; }
 (
     collect "libarithmetic_b*.so"
     collect "libmatmul_b*.so"
-    collect "lingen_b*.so"
+    collect "lingen_b*"
     collect "liblingen_b*"
     collect "libgf2x.so*"
 ) | rsync -a --files-from=- /usr/local/ /usr/local/factoring-linalg/
